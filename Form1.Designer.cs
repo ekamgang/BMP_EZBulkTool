@@ -52,6 +52,7 @@
             this.Button_EditDone = new System.Windows.Forms.Button();
             this.Button_Reset = new System.Windows.Forms.Button();
             this.Label_ErrorText = new System.Windows.Forms.Label();
+            this.CheckBox_MeetingBoost = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Button_Resume
@@ -281,12 +282,25 @@
             this.Label_ErrorText.TabIndex = 11;
             this.Label_ErrorText.Text = "ERROR: YOUR NUMBERS DO NOT MATCH";
             // 
+            // CheckBox_MeetingBoost
+            // 
+            this.CheckBox_MeetingBoost.AutoSize = true;
+            this.CheckBox_MeetingBoost.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.CheckBox_MeetingBoost.Location = new System.Drawing.Point(13, 212);
+            this.CheckBox_MeetingBoost.Name = "CheckBox_MeetingBoost";
+            this.CheckBox_MeetingBoost.Size = new System.Drawing.Size(103, 19);
+            this.CheckBox_MeetingBoost.TabIndex = 12;
+            this.CheckBox_MeetingBoost.Text = "Meeting Boost";
+            this.CheckBox_MeetingBoost.UseVisualStyleBackColor = true;
+            this.CheckBox_MeetingBoost.CheckedChanged += new System.EventHandler(this.CheckBox_MeetingBoost_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(256, 364);
+            this.Controls.Add(this.CheckBox_MeetingBoost);
             this.Controls.Add(this.Label_ErrorText);
             this.Controls.Add(this.Button_Reset);
             this.Controls.Add(this.Button_EditDone);
@@ -344,6 +358,7 @@
         private System.Windows.Forms.Button Button_EditDone;
         private System.Windows.Forms.Button Button_Reset;
         private System.Windows.Forms.Label Label_ErrorText;
+        private System.Windows.Forms.CheckBox CheckBox_MeetingBoost;
     }
 }
 

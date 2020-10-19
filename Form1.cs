@@ -15,6 +15,8 @@ namespace BMP_EZBulkTool
     {
         private BulkStatsManager BSM;
         private bool EditMode;
+
+        private bool MeetingBoost;
         
         public Form1()
         {
@@ -24,6 +26,7 @@ namespace BMP_EZBulkTool
             //this.Icon = new Icon("Resources/EZ.ico");
 
             EditMode = false;
+            BSM.MeetingBoost = MeetingBoost = false;
             TextBox_OPEN.TextChanged += TextBox_OPEN_TextChanged;
             TextBox_REPLY.TextChanged += TextBox_REPLY_TextChanged;
             TextBox_RESUME.TextChanged += TextBox_RESUME_TextChanged;
@@ -36,13 +39,25 @@ namespace BMP_EZBulkTool
 
         private void TestValid()
         {
-            uint ReplyTotal = BSM.Resume + BSM.Meeting;
-
             uint NoReply = BSM.Deleted + BSM.NonQualified + BSM.InfusionSoft_InSystem;
+            if (!MeetingBoost)
+            {
+                uint ReplyTotal = BSM.Resume + BSM.Meeting;
 
+                
+
+
+
+                Label_ErrorText.ForeColor = Color.FromArgb(Color.Red.ToArgb() * Convert.ToByte((BSM.Open + BSM.Reply - (ReplyTotal * 2) - NoReply) != 0));
+                return;
+            }
+            else
+            {
+                uint ReplyTotal = (BSM.Resume + BSM.Meeting) / 2;
+                Label_ErrorText.ForeColor = Color.FromArgb(Color.Red.ToArgb() * Convert.ToByte((BSM.Open + BSM.Reply - (ReplyTotal * 2) - NoReply) != 0));
+            }
             
 
-            Label_ErrorText.ForeColor = Color.FromArgb(Color.Red.ToArgb() * Convert.ToByte((BSM.Open + BSM.Reply - (ReplyTotal*2) - NoReply) != 0));
                 
         }
 
@@ -130,6 +145,7 @@ namespace BMP_EZBulkTool
             this.TextBox_REPLY.Text = BSM.Reply.ToString();
 
             this.TextBox_RESUME.Text = BSM.Resume.ToString();
+            this.TextBox_MEETING.Text = BSM.Meeting.ToString();
         }
 
         private void Button_Meeting_Click(object sender, EventArgs e)
@@ -139,6 +155,7 @@ namespace BMP_EZBulkTool
             this.TextBox_REPLY.Text = BSM.Reply.ToString();
 
             this.TextBox_MEETING.Text = BSM.Meeting.ToString();
+            this.TextBox_RESUME.Text = BSM.Resume.ToString();
         }
 
         private void Button_NonQualified_Click(object sender, EventArgs e)
@@ -208,6 +225,32 @@ namespace BMP_EZBulkTool
 
             }
 
+        }
+
+        private void CheckBox_MeetingBoost_CheckedChanged(object sender, EventArgs e)
+        {
+            var box = sender as CheckBox;
+            if( BSM.Open > 0)
+            {
+                
+                DialogResult result = MessageBox.Show("Changing modes during bulk work will confuse numbers validation. Is that Okay? ", "Changing mode during In-Progress BULK", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    BSM.MeetingBoost = this.MeetingBoost = (sender as CheckBox).Checked;
+                    return;
+                }
+                else
+                {
+                    box.CheckedChanged -= CheckBox_MeetingBoost_CheckedChanged;
+                    box.Checked = !box.Checked;
+                    box.CheckedChanged += CheckBox_MeetingBoost_CheckedChanged;
+
+                    return;
+                }
+
+            }
+
+            BSM.MeetingBoost = this.MeetingBoost = (sender as CheckBox).Checked;
         }
     }
 }

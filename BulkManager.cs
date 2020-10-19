@@ -6,6 +6,7 @@ namespace BMP_EZBulkTool
 {
     class BulkStatsManager
     {
+        public bool MeetingBoost { get; set; }
         public uint Open { get; set; }
         public uint Reply { get; set; }
         public uint Resume { get; set; }
@@ -36,6 +37,11 @@ namespace BMP_EZBulkTool
             this.Open++;
             this.Reply++;
             this.Resume++;
+            if (!MeetingBoost) { 
+                return;
+            }
+            this.Meeting++;
+
         }
 
         public void Increment_Meeting()
@@ -43,6 +49,12 @@ namespace BMP_EZBulkTool
             this.Open++;
             this.Reply++;
             this.Meeting++;
+            if (!MeetingBoost) {
+                return;
+            }
+            this.Resume++;
+            return;
+
         }
 
         public void Increment_Deleted()
