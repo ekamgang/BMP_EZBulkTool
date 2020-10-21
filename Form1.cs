@@ -14,6 +14,7 @@ namespace BMP_EZBulkTool
     public partial class Form1 : Form
     {
         private BulkStatsManager BSM;
+        private MailingService MS;
         private bool EditMode;
 
         private bool MeetingBoost;
@@ -22,6 +23,8 @@ namespace BMP_EZBulkTool
         {
             InitializeComponent();
             BSM = new BulkStatsManager();
+            MS = new MailingService();
+
 
             //this.Icon = new Icon("Resources/EZ.ico");
 
@@ -34,6 +37,7 @@ namespace BMP_EZBulkTool
             TextBox_DELETED.TextChanged += TextBox_DELETED_TextChanged;
             TextBox_NONQUALIFIED.TextChanged += TextBox_NONQUALIFIED_TextChanged;
             TextBox_IS.TextChanged += TextBox_IS_TextChanged;
+            ListView_ContactExecList.View = View.Details;
         }
 
 
@@ -143,9 +147,13 @@ namespace BMP_EZBulkTool
             this.BSM.Increment_Resume();
             this.TextBox_OPEN.Text = BSM.Open.ToString();
             this.TextBox_REPLY.Text = BSM.Reply.ToString();
-
             this.TextBox_RESUME.Text = BSM.Resume.ToString();
             this.TextBox_MEETING.Text = BSM.Meeting.ToString();
+
+            Popup newPopup = new Popup(InsertIntoList, (!MeetingBoost) ? "Resume" : "BOTH");
+            newPopup.Show();
+
+            
         }
 
         private void Button_Meeting_Click(object sender, EventArgs e)
@@ -156,6 +164,19 @@ namespace BMP_EZBulkTool
 
             this.TextBox_MEETING.Text = BSM.Meeting.ToString();
             this.TextBox_RESUME.Text = BSM.Resume.ToString();
+
+            Popup newPopup = new Popup(InsertIntoList, (!MeetingBoost) ? "Meeting" : "BOTH");
+            newPopup.Show();
+        }
+
+        private void InsertIntoList(string firstname,string email, string Type)
+        {
+            ListViewItem newItem = new ListViewItem();
+            newItem.Text = firstname;
+            newItem.SubItems.Add(email);
+            newItem.SubItems.Add(Type);
+            ListView_ContactExecList.Items.Add(newItem);
+            ListView_ContactExecList.Refresh();
         }
 
         private void Button_NonQualified_Click(object sender, EventArgs e)
@@ -189,6 +210,8 @@ namespace BMP_EZBulkTool
 
         private void Button_Reset_Click(object sender, EventArgs e)
         {
+            this.ListView_ContactExecList.Items.Clear();
+            this.ListView_ContactExecList.Refresh();
             this.BSM.Reset();
             UpdateAllTextBoxes();
             TestValid();
@@ -222,7 +245,6 @@ namespace BMP_EZBulkTool
                 TextBox_DELETED.ReadOnly = true;
                 TextBox_NONQUALIFIED.ReadOnly = true;
                 TextBox_IS.ReadOnly = true;
-
             }
 
         }
@@ -251,6 +273,21 @@ namespace BMP_EZBulkTool
             }
 
             BSM.MeetingBoost = this.MeetingBoost = (sender as CheckBox).Checked;
+        }
+
+        private async void Button_SendEmails_Click(object sender, EventArgs e)
+        {
+            this.MS.loadListViewItems(ListView_ContactExecList.Items);
+            await this.MS.SendEmails();
+        }
+
+        private void Button_Remove_Click(object sender, EventArgs e)
+        {
+            if(ListView_ContactExecList.SelectedItems.Count != 0)
+            {
+                ListView_ContactExecList.Items.Remove(ListView_ContactExecList.SelectedItems[0]);
+                ListView_ContactExecList.Refresh();
+            }
         }
     }
 }

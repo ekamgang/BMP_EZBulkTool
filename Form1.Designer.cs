@@ -53,6 +53,12 @@
             this.Button_Reset = new System.Windows.Forms.Button();
             this.Label_ErrorText = new System.Windows.Forms.Label();
             this.CheckBox_MeetingBoost = new System.Windows.Forms.CheckBox();
+            this.ListView_ContactExecList = new System.Windows.Forms.ListView();
+            this.FirstName = new System.Windows.Forms.ColumnHeader();
+            this.Email = new System.Windows.Forms.ColumnHeader();
+            this.EmailType = new System.Windows.Forms.ColumnHeader();
+            this.Button_SendEmails = new System.Windows.Forms.Button();
+            this.Button_Remove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Button_Resume
@@ -294,12 +300,68 @@
             this.CheckBox_MeetingBoost.UseVisualStyleBackColor = true;
             this.CheckBox_MeetingBoost.CheckedChanged += new System.EventHandler(this.CheckBox_MeetingBoost_CheckedChanged);
             // 
+            // ListView_ContactExecList
+            // 
+            this.ListView_ContactExecList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.FirstName,
+            this.Email,
+            this.EmailType});
+            this.ListView_ContactExecList.FullRowSelect = true;
+            this.ListView_ContactExecList.HideSelection = false;
+            this.ListView_ContactExecList.LabelEdit = true;
+            this.ListView_ContactExecList.Location = new System.Drawing.Point(259, 70);
+            this.ListView_ContactExecList.MultiSelect = false;
+            this.ListView_ContactExecList.Name = "ListView_ContactExecList";
+            this.ListView_ContactExecList.Size = new System.Drawing.Size(240, 282);
+            this.ListView_ContactExecList.TabIndex = 0;
+            this.ListView_ContactExecList.UseCompatibleStateImageBehavior = false;
+            this.ListView_ContactExecList.View = System.Windows.Forms.View.Details;
+            // 
+            // FirstName
+            // 
+            this.FirstName.Text = "FirstName";
+            this.FirstName.Width = 80;
+            // 
+            // Email
+            // 
+            this.Email.Text = "Email";
+            this.Email.Width = 80;
+            // 
+            // EmailType
+            // 
+            this.EmailType.Text = "EmailType";
+            this.EmailType.Width = 80;
+            // 
+            // Button_SendEmails
+            // 
+            this.Button_SendEmails.Location = new System.Drawing.Point(424, 41);
+            this.Button_SendEmails.Name = "Button_SendEmails";
+            this.Button_SendEmails.Size = new System.Drawing.Size(75, 23);
+            this.Button_SendEmails.TabIndex = 13;
+            this.Button_SendEmails.Text = "SendEmails";
+            this.Button_SendEmails.UseVisualStyleBackColor = true;
+            this.Button_SendEmails.Click += new System.EventHandler(this.Button_SendEmails_Click);
+            // 
+            // Button_Remove
+            // 
+            this.Button_Remove.BackColor = System.Drawing.Color.Red;
+            this.Button_Remove.Location = new System.Drawing.Point(259, 41);
+            this.Button_Remove.Name = "Button_Remove";
+            this.Button_Remove.Size = new System.Drawing.Size(75, 23);
+            this.Button_Remove.TabIndex = 14;
+            this.Button_Remove.Text = "Remove";
+            this.Button_Remove.UseVisualStyleBackColor = false;
+            this.Button_Remove.Click += new System.EventHandler(this.Button_Remove_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(256, 364);
+            this.ClientSize = new System.Drawing.Size(503, 364);
+            this.Controls.Add(this.Button_Remove);
+            this.Controls.Add(this.Button_SendEmails);
+            this.Controls.Add(this.ListView_ContactExecList);
             this.Controls.Add(this.CheckBox_MeetingBoost);
             this.Controls.Add(this.Label_ErrorText);
             this.Controls.Add(this.Button_Reset);
@@ -359,6 +421,12 @@
         private System.Windows.Forms.Button Button_Reset;
         private System.Windows.Forms.Label Label_ErrorText;
         private System.Windows.Forms.CheckBox CheckBox_MeetingBoost;
+        private System.Windows.Forms.ListView ListView_ContactExecList;
+        public System.Windows.Forms.ColumnHeader FirstName;
+        public System.Windows.Forms.ColumnHeader Email;
+        public System.Windows.Forms.ColumnHeader EmailType;
+        private System.Windows.Forms.Button Button_SendEmails;
+        private System.Windows.Forms.Button Button_Remove;
     }
 }
 
