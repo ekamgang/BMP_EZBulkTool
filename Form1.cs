@@ -128,13 +128,6 @@ namespace BMP_EZBulkTool
             this.TextBox_DELETED.Text = BSM.Deleted.ToString();
             this.TextBox_NONQUALIFIED.Text = BSM.NonQualified.ToString();
             this.TextBox_IS.Text = BSM.InfusionSoft_InSystem.ToString();
-            
-
-
-
-
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -279,6 +272,9 @@ namespace BMP_EZBulkTool
         {
             this.MS.loadListViewItems(ListView_ContactExecList.Items);
             await this.MS.SendEmails();
+            await Task.Delay(25);
+            this.ListView_ContactExecList.Items.Clear();
+            this.ListView_ContactExecList.Refresh();
         }
 
         private void Button_Remove_Click(object sender, EventArgs e)
