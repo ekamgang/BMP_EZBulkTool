@@ -59,6 +59,12 @@
             this.EmailType = new System.Windows.Forms.ColumnHeader();
             this.Button_SendEmails = new System.Windows.Forms.Button();
             this.Button_Remove = new System.Windows.Forms.Button();
+            this.Button_SubmitToDB = new System.Windows.Forms.Button();
+            this.TextBox_FirstName = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Label_LastName = new System.Windows.Forms.Label();
+            this.TextBox_LastName = new System.Windows.Forms.TextBox();
+            this.Button_ViewBulkStats = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Button_Resume
@@ -353,12 +359,74 @@
             this.Button_Remove.UseVisualStyleBackColor = false;
             this.Button_Remove.Click += new System.EventHandler(this.Button_Remove_Click);
             // 
+            // Button_SubmitToDB
+            // 
+            this.Button_SubmitToDB.Location = new System.Drawing.Point(12, 335);
+            this.Button_SubmitToDB.Name = "Button_SubmitToDB";
+            this.Button_SubmitToDB.Size = new System.Drawing.Size(75, 23);
+            this.Button_SubmitToDB.TabIndex = 15;
+            this.Button_SubmitToDB.Text = "Submit";
+            this.Button_SubmitToDB.UseVisualStyleBackColor = true;
+            this.Button_SubmitToDB.Click += new System.EventHandler(this.Button_SubmitToDB_Click);
+            // 
+            // TextBox_FirstName
+            // 
+            this.TextBox_FirstName.Location = new System.Drawing.Point(83, 6);
+            this.TextBox_FirstName.Name = "TextBox_FirstName";
+            this.TextBox_FirstName.PlaceholderText = "First Name";
+            this.TextBox_FirstName.Size = new System.Drawing.Size(100, 23);
+            this.TextBox_FirstName.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label8.Location = new System.Drawing.Point(13, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(64, 15);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "First Name";
+            // 
+            // Label_LastName
+            // 
+            this.Label_LastName.AutoSize = true;
+            this.Label_LastName.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_LastName.Location = new System.Drawing.Point(189, 9);
+            this.Label_LastName.Name = "Label_LastName";
+            this.Label_LastName.Size = new System.Drawing.Size(63, 15);
+            this.Label_LastName.TabIndex = 18;
+            this.Label_LastName.Text = "Last Name";
+            // 
+            // TextBox_LastName
+            // 
+            this.TextBox_LastName.Location = new System.Drawing.Point(258, 6);
+            this.TextBox_LastName.Name = "TextBox_LastName";
+            this.TextBox_LastName.PlaceholderText = "Last Name";
+            this.TextBox_LastName.Size = new System.Drawing.Size(100, 23);
+            this.TextBox_LastName.TabIndex = 19;
+            // 
+            // Button_ViewBulkStats
+            // 
+            this.Button_ViewBulkStats.Location = new System.Drawing.Point(416, 6);
+            this.Button_ViewBulkStats.Name = "Button_ViewBulkStats";
+            this.Button_ViewBulkStats.Size = new System.Drawing.Size(75, 23);
+            this.Button_ViewBulkStats.TabIndex = 20;
+            this.Button_ViewBulkStats.Text = "View Bulk";
+            this.Button_ViewBulkStats.UseVisualStyleBackColor = true;
+            this.Button_ViewBulkStats.Click += new System.EventHandler(this.Button_ViewBulkStats_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(503, 364);
+            this.ClientSize = new System.Drawing.Size(503, 361);
+            this.Controls.Add(this.Button_ViewBulkStats);
+            this.Controls.Add(this.TextBox_LastName);
+            this.Controls.Add(this.Label_LastName);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.TextBox_FirstName);
+            this.Controls.Add(this.Button_SubmitToDB);
             this.Controls.Add(this.Button_Remove);
             this.Controls.Add(this.Button_SendEmails);
             this.Controls.Add(this.ListView_ContactExecList);
@@ -387,6 +455,7 @@
             this.Controls.Add(this.Button_Meeting);
             this.Controls.Add(this.Button_Resume);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(519, 500);
             this.Name = "Form1";
             this.Text = "EZBulkTool By Alexander Moreno";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -427,6 +496,13 @@
         public System.Windows.Forms.ColumnHeader EmailType;
         private System.Windows.Forms.Button Button_SendEmails;
         private System.Windows.Forms.Button Button_Remove;
+        private System.Windows.Forms.Button Button_SubmitToDB;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label Label_LastName;
+        private System.Windows.Forms.TextBox TextBox_LastName;
+        private System.Windows.Forms.TextBox TextBox_FirstName;
+        private System.Windows.Forms.Button Button_ViewBulkStats;
     }
 }
 

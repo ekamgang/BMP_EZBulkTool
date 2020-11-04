@@ -1,11 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Net.Http;
+using BMPBulkFunctions;
+using System.Net;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace BMP_EZBulkTool
 {
-    class BulkStatsManager
+
+    
+    public class BulkStatsManager
     {
+        private static readonly string AppKey = "";
+        private static readonly HttpClient client = new HttpClient();
+
         public bool MeetingBoost { get; set; }
         public uint Open { get; set; }
         public uint Reply { get; set; }
@@ -96,6 +107,70 @@ namespace BMP_EZBulkTool
 
             return stringBuilder.ToString();
 
+        }
+
+
+
+        public async Task<bool> HTTPSendToDB(string FirstName, string LastName)
+        {
+            /*
+            var UrlValues = new Dictionary<string, string>
+            {
+                {"code", AppKey },
+                {"clientId","BMPBulkTools_WindowsApp" }, //Hard coded values ( I KNOW,  BAD PRACTICE, TODO: config file)
+                {"firstname", FirstName },
+                {"lastname", LastName },
+                {"opened", this.Open.ToString() },
+                {"replied" , this.Reply.ToString() },
+                {"resumes", this.Resume.ToString() },
+                {"meeting", this.Meeting.ToString() },
+                {"notqual", this.NonQualified.ToString() },
+                {"deleted", this.Deleted.ToString() },
+                {"insystem", this.InfusionSoft_InSystem.ToString() },
+                
+            };
+
+            
+            */
+
+            var content = new FormUrlEncodedContent(new Dictionary<string,string>());
+            var response = await client.PostAsync(String.Format("https://bmpbulkfunctions.azurewebsites.net/api/InsertNewBulkSession?code={0}&clientId={1}&firstname={2}&lastname={3}&opened={4}&replied={5}&resumes={6}&meeting={7}&notqual={8}&deleted={9}&insystem={10}",AppKey, "BMPBulkTools_WindowsApp",FirstName,LastName,Open,Reply,Resume,Meeting,NonQualified,Deleted,InfusionSoft_InSystem),content);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            return false;
+
+            
+        }
+
+
+        public async Task<DataContracts.SQLJsonBulkNumbers> GetBulkNumbers(DateTime date)
+        {
+            try
+            {
+                var response = await client.GetAsync(String.Format("https://bmpbulkfunctions.azurewebsites.net/api/GetDailyBulk?code={0}&clientId={1}&date={2}", AppKey, "BMPBulkTools_WindowsApp", date.ToString("yyyy-MM-dd")));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    DataContracts.SQLJsonBulkNumbers bulkNumbers = JsonConvert.DeserializeObject<DataContracts.SQLJsonBulkNumbers>(await response.Content.ReadAsStringAsync());
+
+                    return bulkNumbers;
+                }
+            }
+            catch(HttpRequestException e1)
+            {
+                //Show dialog?
+                MessageBox.Show($"An Error occured during HTTP request. Message: {e1.Message}", "ERROR DURING REQUEST", MessageBoxButtons.OK);
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return null;
         }
 
     }

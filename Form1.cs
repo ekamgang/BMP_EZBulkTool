@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +10,8 @@ namespace BMP_EZBulkTool
     {
         private BulkStatsManager BSM;
         private MailingService MS;
+
+        private Form2 _form2;
         private bool EditMode;
 
         private bool MeetingBoost;
@@ -25,7 +22,7 @@ namespace BMP_EZBulkTool
             BSM = new BulkStatsManager();
             MS = new MailingService();
 
-
+            _form2 = null;
             //this.Icon = new Icon("Resources/EZ.ico");
 
             EditMode = false;
@@ -284,6 +281,65 @@ namespace BMP_EZBulkTool
                 ListView_ContactExecList.Items.Remove(ListView_ContactExecList.SelectedItems[0]);
                 ListView_ContactExecList.Refresh();
             }
+        }
+
+        private async void Button_SubmitToDB_Click(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+
+            if (BSM.Open == 0)
+            {
+                DialogResult result = MessageBox.Show("You have no data to submit.","Invalid submission data",MessageBoxButtons.OK );
+                return;
+            }
+
+
+            if (String.IsNullOrEmpty(TextBox_FirstName.Text) || String.IsNullOrEmpty(TextBox_FirstName.Text) )
+            {
+                DialogResult result = MessageBox.Show("One or both of your name fields are empty. Are you sure you want to continue?", "Missing name fields", MessageBoxButtons.YesNo);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
+            DialogResult FinalizeNumbers_DialogResult = MessageBox.Show("This will send results the BMP Bulk Database. Your numbers will be reset. Are you sure?", "Send final numbers to Database?", MessageBoxButtons.OKCancel);
+
+            if(FinalizeNumbers_DialogResult == DialogResult.Cancel)
+            {
+                return;
+            }
+
+
+            if ( (await BSM.HTTPSendToDB(TextBox_FirstName.Text, TextBox_LastName.Text)))
+            {
+                this.BSM.Reset();
+                UpdateAllTextBoxes();
+                TestValid();
+                return;
+            }
+            else
+            {
+                MessageBox.Show("There was an error sending the request.", "Error sending Bulk Data", MessageBoxButtons.OK);
+                //TODO dialog  display an error;
+            }
+
+
+        }
+
+        private void Button_ViewBulkStats_Click(object sender, EventArgs e)
+        {
+
+            if(_form2 == null)
+            {
+                // Create new form to see total bulk stats.
+                _form2 = new Form2(this.BSM);
+                _form2.Show();
+                return;
+            }
+
+            _form2.Show();
+
         }
     }
 }
