@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>bulk</title>
+  <link rel="Stylesheet" href="bulkwebapp.css">
+  <script src="bulkwebapp.js"></script>
+
+</head>
+
+  <body class="main">
+    <h1 class="center title">BULK TOOL</h1>
+
+    <div >
+
+        <hr>
+        <div class="row">
+          <div class="column left">
+          <label for="day" >First Name:</label>
+        <input type="text" name="fName" class="space-left">
+      </div>
+      <div class="column middle">
+          <label for="day" >Last Name:</label>
+        <input type="text" name="lName" class="space-left">
+      </div>
+        <div class="column right">
+          <button type="button" name="viewBulk "class="grid-item">view bulk</button>
+          <button id="submit">Submit</button><br>
+
+        </div>
+      </div>
+
+        <div class="row">
+
+          <div class="column left">
+            <label for="resultBoxName">Name</label>
+            <input type="text" id="resultBoxName"><br>
+            <label for="resultBoxemail">email</label>
+            <input type="text" id="resultBoxemail">
+            <button onclick="addtoListBox()">submit</button>
+          </div>
+          <div class="column middle">
+            <button  onclick="resetClicked()">reset</button>
+          </div>
+          <div class="column right">
+            <button type="reset" name="send">Send Email</button>
+            <button type="reset" name="remove" class="red">Remove Email</button>
+          </div>
+        </div>
+        <div class="row">
+
+        <div class="column right">
+
+        <button onclick="resumeClicked()">Resume</button><br><br><br>
+        <button onclick="meetingClicked()">Meeting</button><br><br><br><br>
+        <button onclick="NQClicked()" class="red">Not Qualified</button><br><br>
+        <button  onclick="deletedClicked()">Deleted</button><br><br>
+        <button  onclick="inSystemlicked()">In-System</button><br>
+
+        </div>
+        <div id ="numbers" class="column middle">
+
+          <label for="Open">Open:</label>
+          <input type="number" id="Open" class="space-left"  value=0><br><br>
+          <label for="Reply">Reply:</label>
+          <input type="number" id="Reply" class="space-left" value=0><br><br>
+          <label for="Resume">Resume:</label>
+          <input type="number" id="resume" class="space-left" value=0><br><br>
+          <label for="Meeting">Meeting:</label>
+          <input type="number" id="Meeting" class="space-left" value=0><br><br>
+          <label for="Deleted">Deleted:</label>
+          <input type="number" id="Deleted" class="space-left" value=0><br><br>
+          <label for="nQualified">Non-Qualified:</label>
+          <input type="number" id="nQualified" class="space-left" value=0><br><br>
+          <label for="IS">IS less than 6 Months:</label>
+          <input type="number" id="in-system" class="space-left" value=0><br>
+        </div>
+        <div class="column right">
+          <div class="output" id="result">
+            Emails:
+            <ul id="list" >
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
